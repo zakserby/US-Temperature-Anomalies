@@ -1,0 +1,85 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww30040\viewh18900\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 This readme file was generated on 2025-10-20\
+\
+# GENERAL INFORMATION\
+\
+* Title of Dataset: US County-Level Temperature Anomalies (1960\'962024)\
+\
+## Author/Principal Investigator Information\
+Name: N/A\
+Institution: Cornell University\
+Address: Ithaca, NY, USA\
+Email: N/A\
+\
+* Date of data collection: 1960\'962024\
+* Geographic location of data collection: Continental United States, county-level spatial resolution\
+\
+# SHARING/ACCESS INFORMATION\
+\
+* Licenses/restrictions placed on the data: PRISM data subject to PRISM Climate Group data use policies; population and shapefile data subject to original data source policies\
+* Links/relationships to ancillary data sets: US Census shapefiles, PRISM climate data, GPWv4 population count raster\
+* Was data derived from another source?\
+    * If yes, list source(s): PRISM Climate Group annual mean temperature data, Gridded Population of the World, Version 4 (GPWv4) population count raster (CIESIN, Columbia University), US Census shapefiles\
+* Recommended citation for this dataset: US County-Level Temperature Anomalies, 1960\'962024. Generated using PRISM climate data and GPWv4 population rasters.\
+\
+# DATA & FILE OVERVIEW\
+\
+## File List:\
+* data/prism/ \'96 PRISM annual mean temperature raster files\
+* data/population/ \'96 Population raster file (.tif; GPWv4 Population Count, Revision 11, 2010, 2.5 arc-minute)\
+* data/shapefile/ \'96 US county shapefiles (.shp and associated files; 2010 US Census Cartographic Boundary File, 1:20,000,000)\
+* output_figure/temperature_anomalies.gif \'96 Final GIF animation of annual temperature anomalies (the PNG for each year is saved here while the GIF is made, then deleted)\
+* script_files/1_download_prism.R \'96 Script to download PRISM climate data\
+* script_files/2_raster_to_polygon.R \'96 Script to process rasters to county polygons and generate anomalies\
+* script_files/3_plot_video.R \'96 Script to generate figures and GIF animation\
+* script_files/US-Temperature-Anomalies.Rproj \'96 RStudio project (open this first so the scripts find the data folders)\
+\
+* Required workflow order:\
+    1. Run `1_download_prism.R` to download PRISM climate data\
+    2. Run `2_raster_to_polygon.R` to align rasters with county polygons and calculate anomalies\
+    3. Run `3_plot_video.R` to generate PNG figures for each year and create GIF animation\
+\
+* Relationship between files, if important: PRISM and population rasters are processed to generate population-weighted county-level temperature anomalies, which are visualized in the PNG and GIF outputs.\
+* Additional related data collected that was not included in the current data package: None. The PRISM rasters (about 219 MB) and the population .tif (about 28 MB) are used but are too large to store on GitHub; see README.md for where to get them\
+\
+# METHODOLOGICAL INFORMATION\
+\
+## Description of methods used for collection/generation of data:\
+- PRISM annual mean temperature data downloaded using the prism R package\
+- Population raster obtained from Gridded Population of the World, Version 4 (GPWv4): Population Count, Revision 11 (CIESIN, Columbia University; 2010, 2.5 arc-minute)\
+- County polygons obtained from US Census shapefiles (2010 Cartographic Boundary File, 1:20,000,000; Alaska, Hawaii and Puerto Rico removed)\
+- County-level anomalies calculated relative to the 1960\'961980 baseline\
+\
+## Methods for processing the data:\
+- Raster data were aligned with county polygons\
+- Population-weighted aggregation performed using a sparse matrix\
+- Baseline means computed and subtracted to calculate anomalies\
+- Visualizations created using R base plotting functions and RColorBrewer for color scales\
+- GIF animation created using magick package\
+\
+## Instrument- or software-specific information needed to interpret the data:\
+- R version 4.x or higher\
+- Required packages: sf, terra, RColorBrewer, Matrix, tmaptools, prism, parallel, magick\
+\
+* Standards and calibration information, if appropriate: PRISM temperature data calibrated according to PRISM Climate Group standards\
+* Environmental/experimental conditions: Data represent historical climate conditions; no experimental interventions\
+* Describe any quality-assurance procedures performed on the data: Counties with missing raster values excluded; population-weighted aggregation ensures consistency\
+* People involved with sample collection, processing, analysis and/or submission: N/A (data processing, analysis, visualization)\
+\
+# DATA-SPECIFIC INFORMATION FOR: output_figure/temperature_anomalies.gif\
+\
+* Number of variables: Visualization output only; aggregated from multiple variables in underlying rasters\
+* Number of cases/rows: 3 panels per year (top map, legend, bottom line plot)\
+* Variable List:\
+    * Top panel: County polygons colored by temperature anomaly (\'b0C)\
+    * Bottom panel: Average population-weighted temperature anomaly (\'b0C) over time\
+* Missing data codes: NA values in raster and polygons\
+* Specialized formats or other abbreviations used: PNG and GIF image formats for outputs\
+\
+}
